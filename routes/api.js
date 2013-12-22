@@ -7,7 +7,7 @@ exports.create = function(req, res){
 			tel: ""
 	};
 
-	person.nickname = req.params.name;
+	person.nickname = req.params.nickname;
 
 	person.tel =  req.query.tel;
 	person.name = req.query.name;
@@ -23,12 +23,12 @@ exports.read = function(req, res){
 };
 
 exports.update = function(req, res){
-	var nickname = req.params.name;
+	var nickname = req.params.nickname;
 
 	vcard.forEach(function (entry) {
 		if (entry.nickname === nickname) {
 			console.log('found!');
-			
+
 			entry.name =  req.query.name;
 			entry.tel =  req.query.tel;
 		}
