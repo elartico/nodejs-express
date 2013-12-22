@@ -1,22 +1,42 @@
-exports.time = function(req, res){
-	var obj = {
-	    "now": new Date().toISOString()
+var vcard = [];
+
+exports.create = function(req, res){
+	var person = {
+			nickname: "",
+			name: "",
+			tel: ""
 	};
 
-	res.send(obj);
+	person.nickname = req.params.name;
+
+	person.tel =  req.query.tel;
+	person.name = req.query.name;
+
+	vcard.push(person);
+
+	res.end();
 };
 
+exports.read = function(req, res){
+	res.send(vcard);
+	res.end();	
+};
 
-var calledTime = 0;
+exports.update = function(req, res){
+	var nickname = req.params.name;
 
-exports.info = function(req, res) {
-	calledTime += 1; // API 呼叫次數
+	vcard.forEach(function (entry) {
+		if (entry.nickname === nickname) {
+			console.log('found!');
+			
+			entry.name =  req.query.name;
+			entry.tel =  req.query.tel;
+		}
+	});
 
-	var obj = {
-		"server": "Hank's Server",
-		"time": new Date().toISOString(),
-		"count": calledTime
-	};
+	res.end();
+};
 
-	res.send(obj);
+exports.delete = function(req, res){
+	res.end();
 };

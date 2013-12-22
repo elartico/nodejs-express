@@ -30,16 +30,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
-app.get('/hello', hello.index);
-
-app.get('/jollen', hello.jollen);
-app.get('/hi', hello.hi);
-
 // REST API
-app.get('/1/time', api.time);
-app.get('/1/info', api.info);
+app.post('/1/user/:name', api.create);
+app.get('/1/user/:name', api.read);
+app.put('/1/user/:name', api.update);
+app.delete('/1/user/:name', api.delete);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
